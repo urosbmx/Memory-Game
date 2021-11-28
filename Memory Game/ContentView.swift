@@ -6,15 +6,53 @@
 //
 
 import SwiftUI
+//import XCTest
 
 struct ContentView: View {
+    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷"]
+    @State var emojiCount = 6
     var body: some View {
         HStack{
-            CardView(valueCard: "💻")
+            ForEach(emojis[0..<emojiCount], id: \.self) {emoji in CardView(values: emoji)
+            }
             
         }
-        .padding(.horizontal)
-            }
+        HStack {
+            Button(action: {
+                if emojiCount > 1{
+                    emojiCount -= 1
+                }
+
+                
+            }, label: {
+                VStack(alignment: .leading){
+                    Image(systemName: "minus.circle")
+                        .padding()
+                        .font(.largeTitle)
+
+                        
+                }
+                
+            })
+            Spacer()
+            Button(action: {
+                if emojiCount < 6{
+                    emojiCount += 1
+                }
+            }, label: {
+                VStack{
+                    Image(systemName: "plus.circle")
+                        .padding()
+                        .font(.largeTitle)
+
+                        
+                }
+                
+            })
+        }
+
+    }
+  
 }
 
 
@@ -22,37 +60,39 @@ struct ContentView: View {
 
 
 struct CardView: View {
-    var valueCard: String
-    var closeCard = false
-    var body: some View{
-        if closeCard {
-                ZStack{
-                    RoundedRectangle(cornerRadius: 30)
-                        .stroke(lineWidth: 3)
-                    Text(valueCard)
-                        .font(.largeTitle)
-                }
-                .padding()
-            }else{
-                ZStack{
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill()
-                        .foregroundColor(.red)
-                }
-                .padding()
-            }
-    }
+    var values: String
+   @State var closeCard: Bool = false
     
+    var body: some View{
+        ZStack{
+            let shape = RoundedRectangle(cornerRadius: 30)
+            if closeCard{
+                shape.fill().foregroundColor(.white)
+                shape.stroke(lineWidth: 3)
+                Text(values).font(.largeTitle)
+            }else{
+                shape.fill()
+            }
+        }
+        .padding()
+        .foregroundColor(.red)
+        .onTapGesture {
+            closeCard = !closeCard
+        }
 }
 
-//onTapGesture(count: <#T##Int#>, perform: )
+
+
 
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-//            .preferredColorScheme(.dark)
+        Group {
+            ContentView()
+        }
         
     }
+}
+    
 }
