@@ -9,10 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, kaya")
-            .padding()
+        HStack{
+            CardView(valueCard: "Uros")
+        }
     }
 }
+
+
+//This is view and designe for card's
+
+struct CardView: View {
+    var valueCard: String
+    var body: some View{
+        ZStack{
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(lineWidth: 3)
+            Text(valueCard)
+                .font(.largeTitle)
+        }
+        .padding()
+    }
+    
+}
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
