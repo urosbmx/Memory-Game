@@ -9,50 +9,50 @@ import SwiftUI
 //import XCTest
 
 struct ContentView: View {
-    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷"]
-    @State var emojiCount = 6
+    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦"]
+    @State var emojiCount = 3
     var body: some View {
-        HStack{
-            ForEach(emojis[0..<emojiCount], id: \.self) {emoji in CardView(values: emoji)
-            }
-            
-        }
-        HStack {
-            Button(action: {
-                if emojiCount > 1{
-                    emojiCount -= 1
+        VStack{
+                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]){
+                    ForEach(emojis[0..<emojiCount], id: \.self) {emoji in CardView(values: emoji).aspectRatio(2/3, contentMode: .fit)}
                 }
-
-                
-            }, label: {
-                VStack(alignment: .leading){
-                    Image(systemName: "minus.circle")
-                        .padding()
-                        .font(.largeTitle)
-
-                        
-                }
-                
-            })
             Spacer()
-            Button(action: {
-                if emojiCount < 6{
-                    emojiCount += 1
-                }
-            }, label: {
-                VStack{
-                    Image(systemName: "plus.circle")
-                        .padding()
-                        .font(.largeTitle)
+          }
+        .foregroundColor(.red)
+        HStack {
+              Button(action: {
+                  if emojiCount > 1{
+                      emojiCount -= 1
+                  }
 
-                        
-                }
-                
-            })
-        }
+             
+              }, label: {
+                  VStack(alignment: .leading){
+                      Image(systemName: "minus.circle")
+                          .padding()
+                          .font(.largeTitle)
+                  }
+                  
+              })
+              Spacer()
+              Button(action: {
+                  if emojiCount < 7{
+                      emojiCount += 1
+                  }
+              }, label: {
+                  VStack{
+                      Image(systemName: "plus.circle")
+                          .padding()
+                          .font(.largeTitle)
+                          
+                          
+                  }
+                  
+              })
+          }
 
+        
     }
-  
 }
 
 
@@ -65,17 +65,18 @@ struct CardView: View {
     
     var body: some View{
         ZStack{
-            let shape = RoundedRectangle(cornerRadius: 30)
+            let shape = RoundedRectangle(cornerRadius: 20)
             if closeCard{
                 shape.fill().foregroundColor(.white)
                 shape.stroke(lineWidth: 3)
                 Text(values).font(.largeTitle)
             }else{
                 shape.fill()
+                shape.stroke(lineWidth: 3)
             }
         }
         .padding()
-        .foregroundColor(.red)
+       
         .onTapGesture {
             closeCard = !closeCard
         }
