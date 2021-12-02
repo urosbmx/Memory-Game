@@ -1,21 +1,19 @@
 {
   "images" : [
     {
+      "filename" : "small.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "mid.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Untitled.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
     {
-      "filename" : "small.png",
       "idiom" : "iphone",
       "scale" : "1x"
     },

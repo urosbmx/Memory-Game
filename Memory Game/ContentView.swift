@@ -9,8 +9,9 @@ import SwiftUI
 //import XCTest
 
 struct ContentView: View {
-    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦","🪙"]
-    @State var emojiCount = 5
+    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦","🪙","💎","🎙","💿"]
+   
+    @State var emojiCount = 3
     var body: some View {
         VStack{
             HStack{Text("PICK THE CARD").font(.body)}
@@ -39,7 +40,7 @@ struct ContentView: View {
                 
                   Spacer()
                   Button(action: {
-                      if emojiCount < 9{
+                      if emojiCount < 13{
                           emojiCount += 1
                       }
                   }, label: {
@@ -77,6 +78,7 @@ struct CardView: View {
             }else{
                 shape.fill()
                 shape.stroke(lineWidth: 3)
+                    
 
             }
         }
