@@ -9,7 +9,7 @@ import SwiftUI
 //import XCTest
 
 struct ContentView: View {
-    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦","🪙","💎","🎙","💿"]
+//    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦","🪙","💎","🎙","💿"]
    
     @State var emojiCount = 3
     var body: some View {
@@ -22,36 +22,6 @@ struct ContentView: View {
             }
 
                 .foregroundColor(.red)
-            Spacer()
-            HStack {
-                  Button(action: {
-                      if emojiCount > 1{
-                          emojiCount -= 1
-                      }
-
-                  }, label: {
-                      VStack(){
-                          Image(systemName: "minus.circle")
-                              .padding()
-                              .font(.largeTitle)
-                      }
-                      
-                  })
-                
-                  Spacer()
-                  Button(action: {
-                      if emojiCount < 13{
-                          emojiCount += 1
-                      }
-                  }, label: {
-                      VStack{
-                          Image(systemName: "plus.circle")
-                              .padding()
-                              .font(.largeTitle)
-                      }
-                      
-                  })
-              }
 
           }
     
