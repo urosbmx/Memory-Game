@@ -3,7 +3,7 @@
 //  Memory Game
 //
 //  Created by Uroš Katanić on 28.11.21..
-//
+//  OVO JE VIEW
 
 import SwiftUI
 //import XCTest
