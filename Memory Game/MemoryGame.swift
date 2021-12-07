@@ -3,7 +3,7 @@
 //  Memory Game
 //
 //  Created by Uroš Katanić on 6.12.21..
-//
+//  OVO JE MODEL
 
 import Foundation
 
