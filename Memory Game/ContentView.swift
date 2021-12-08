@@ -9,22 +9,24 @@ import SwiftUI
 //import XCTest
 
 struct ContentView: View {
-//    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦","🪙","💎","🎙","💿"]
+    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦","🪙","💎","🎙","💿"]
    
-    @State var emojiCount = 3
+    @State var emojiCount = 10
     var body: some View {
         VStack{
             HStack{Text("PICK THE CARD").font(.body)}
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]){
-                    ForEach(emojis[0..<emojiCount], id: \.self) {emoji in CardView(values: emoji).aspectRatio(2/3, contentMode: .fit)}
+                    ForEach(emojis[0..<emojiCount], id: \.self){emoji in
+                        CardView(values: emoji).aspectRatio(2/3, contentMode: .fit)
+                        
+                    }
                 }
             }
-
-                .foregroundColor(.red)
+             .foregroundColor(.red)
 
           }
-    
+        .padding(.horizontal)
     }
        
 }
@@ -36,12 +38,12 @@ struct ContentView: View {
 
 struct CardView: View {
     var values: String
-   @State var closeCard: Bool = false
+   @State var isFaceUp: Bool = false
     
     var body: some View{
         ZStack{
             let shape = RoundedRectangle(cornerRadius: 20)
-            if closeCard{
+            if isFaceUp{
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 Text(values).font(.largeTitle)
@@ -49,13 +51,12 @@ struct CardView: View {
                 shape.fill()
                 shape.stroke(lineWidth: 3)
                     
-
             }
         }
         .padding()
        
         .onTapGesture {
-            closeCard = !closeCard
+            isFaceUp = !isFaceUp
         }
 }
 

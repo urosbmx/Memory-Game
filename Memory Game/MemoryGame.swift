@@ -2,34 +2,34 @@
 //  MemoryGame.swift
 //  Memory Game
 //
-//  Created by Uroš Katanić on 6.12.21..
-//  OVO JE MODEL
+//  Created by Uroš Katanić on 8.12.21..
+//  Ovo je model
 
 import Foundation
 
-struct MemoryGame<CardContent>{
-    var card: Array<Card>
+struct MemoryGame <CardContent>{
+    var cards: Array<Card>
     
     func chose(_ card: Card){
         
     }
     
-    init(numberOfPairsOfCard: Int, creatCardContent:(Int)-> CardContent)
-    {
-        card = Array<Card>()
-//        Broj karata se mnozi sa dva
-        for pairIndex in 0..<numberOfPairsOfCard{
-            let content: CardContent = creatCardContent(pairIndex)
-            card.append(Card(content: content))
-            card.append(Card(content: content))
+    init(numberOfPairsOfCards: Int, createCardContent:(Int) -> CardContent){
+        cards =  Array<Card>()
+        
+        for pairIndex in 0..<numberOfPairsOfCards{
+            let content: CardContent = createCardContent(pairIndex)
+            cards.append(Card(isFaceUP: false, isMatched: false, content: content))
+            cards.append(Card(isFaceUP: false, isMatched: false, content: content))
         }
+
     }
+    
     
     struct Card{
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
+        var isFaceUP: Bool
+        var isMatched: Bool
         var content: CardContent
     }
-    
-    
 }
+ 
