@@ -2,7 +2,7 @@
 //  EmojiMemoryGame.swift
 //  Memory Game
 //
-//  Created by Uroš Katanić on 8.12.21..
+ //  Created by Uroš Katanić on 8.12.21..
 //
 
 import SwiftUI
@@ -18,7 +18,8 @@ class EmojiMemoryGame{
     }
     
     private var model: MemoryGame<String> = createMemoryGame()
+    
     var cards: Array<MemoryGame<String>.Card>{
-        return model.cards
+        model.cards
     }
 }

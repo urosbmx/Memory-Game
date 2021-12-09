@@ -9,7 +9,8 @@ import SwiftUI
 //import XCTest
 
 struct ContentView: View {
-    var emojis = ["⌚️","📱","💻","🖥","🖱","📺","📷","🔦","🪙","💎","🎙","💿"]
+
+    let viewModel: EmojiMemoryGame
    
     @State var emojiCount = 10
     var body: some View {
@@ -17,8 +18,8 @@ struct ContentView: View {
             HStack{Text("PICK THE CARD").font(.body)}
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]){
-                    ForEach(emojis[0..<emojiCount], id: \.self){emoji in
-                        CardView(values: emoji).aspectRatio(2/3, contentMode: .fit)
+                    ForEach(viewModel.cards){card in
+                        CardView(card: card).aspectRatio(2/3, contentMode: .fit)
                         
                     }
                 }
@@ -37,7 +38,9 @@ struct ContentView: View {
 
 
 struct CardView: View {
-    var values: String
+    var card: MemoryGame<String>.Card
+    
+//    var values: String
    @State var isFaceUp: Bool = false
     
     var body: some View{
@@ -46,7 +49,7 @@ struct CardView: View {
             if isFaceUp{
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
-                Text(values).font(.largeTitle)
+                Text(card.content).font(.largeTitle)
             }else{
                 shape.fill()
                 shape.stroke(lineWidth: 3)
@@ -67,8 +70,9 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+        let game = EmojiMemoryGame()
         Group {
-            ContentView()
+            ContentView(viewModel: game)
         }
         
     }
