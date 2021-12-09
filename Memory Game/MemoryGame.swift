@@ -6,12 +6,26 @@
 //  OVO JE MODEL
 
 import Foundation
+import SwiftUI
 
 struct MemoryGame <CardContent>{
     var cards: Array<Card>
     
-    func chose(_ card: Card){
+   mutating func chose(_ card: Card){
+        let chosenIndex = index(of: card)
+        cards[chosenIndex].isFaceUP.toggle()
+        print("chosenCard = \(cards)")
+       
         
+    }
+    func index(of card: Card)-> Int{
+        for index in 0..<cards.count{
+            if cards[index].id == card.id{
+                
+                return index
+            }
+        }
+        return 0
     }
     
     init(numberOfPairsOfCards: Int, createCardContent:(Int) -> CardContent){
@@ -25,10 +39,10 @@ struct MemoryGame <CardContent>{
 
     }
     
-    
-    struct Card: Identifiable{
+     
+  struct Card: Identifiable{
         
-        var isFaceUP: Bool = true
+        var isFaceUP: Bool = false
         var isMatched: Bool = false
         var content: CardContent
         var id: Int

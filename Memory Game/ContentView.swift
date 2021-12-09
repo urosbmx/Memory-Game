@@ -1,26 +1,28 @@
 //
 //  ContentView.swift
 //  Memory Game
-//
+//  Stigao sam do 37:03 Lekcija 4
 //  Created by Uroš Katanić on 28.11.21..
 //  OVO JE VIEW
 
 import SwiftUI
-//import XCTest
 
 struct ContentView: View {
 
-    let viewModel: EmojiMemoryGame
+   @ObservedObject var viewModel: EmojiMemoryGame
    
     @State var emojiCount = 10
     var body: some View {
         VStack{
             HStack{Text("PICK THE CARD").font(.body)}
             ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]){
+                LazyVGrid(columns: [GridItem(.adaptive(minimum:110))]){
                     ForEach(viewModel.cards){card in
-                        CardView(card: card).aspectRatio(2/3, contentMode: .fit)
-                        
+                        CardView(card: card)
+                            .aspectRatio(2/3, contentMode: .fill)
+                            .onTapGesture {
+                                viewModel.chose(card)
+                            }
                     }
                 }
             }
@@ -38,15 +40,13 @@ struct ContentView: View {
 
 
 struct CardView: View {
-    var card: MemoryGame<String>.Card
-    
-//    var values: String
-   @State var isFaceUp: Bool = false
+    let card: MemoryGame<String>.Card
+    @State var isFaceUp: Bool = false
     
     var body: some View{
         ZStack{
             let shape = RoundedRectangle(cornerRadius: 20)
-            if isFaceUp{
+            if card.isFaceUP{
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 Text(card.content).font(.largeTitle)
@@ -57,10 +57,6 @@ struct CardView: View {
             }
         }
         .padding()
-       
-        .onTapGesture {
-            isFaceUp = !isFaceUp
-        }
 }
 
 
