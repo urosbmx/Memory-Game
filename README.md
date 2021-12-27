@@ -1,2 +1,2 @@
 # Memory-Game
-Stenford kurs 2021
+Stanford kurs 2021 Swift
