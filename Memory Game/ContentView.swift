@@ -1,7 +1,7 @@
 //
 //  ContentView.swift
 //  Memory Game
-//  Stigao sam do 37:03 Lekcija 4
+//  Stigao sam do 1:25:16 Lekcija 4
 //  Created by Uroš Katanić on 28.11.21..
 //  OVO JE VIEW
 
@@ -50,7 +50,10 @@ struct CardView: View {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 Text(card.content).font(.largeTitle)
-            }else{
+            }else if card.isMatched{
+                shape.opacity(0)
+            }
+            else{
                 shape.fill()
                 shape.stroke(lineWidth: 3)
                     

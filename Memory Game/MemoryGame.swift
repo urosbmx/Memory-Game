@@ -8,24 +8,32 @@
 import Foundation
 import SwiftUI
 
-struct MemoryGame <CardContent>{
+struct MemoryGame <CardContent> where CardContent: Equatable{
     var cards: Array<Card>
     
+private var indexOfTheOneAndOnlyFaceUpCard:Int?
+    
    mutating func chose(_ card: Card){
-        let chosenIndex = index(of: card)
+       if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}),
+          !cards[chosenIndex].isFaceUP,
+          !cards[chosenIndex].isMatched {
+           if let potencialMatchIndex = indexOfTheOneAndOnlyFaceUpCard{
+               if cards[chosenIndex].content == cards[potencialMatchIndex].content{
+                   cards[chosenIndex].isMatched=true
+                   cards[potencialMatchIndex].isMatched=true
+               }
+               indexOfTheOneAndOnlyFaceUpCard = nil
+           }else{
+               for index in cards.indices{
+                   cards[index].isFaceUP=false
+               }
+               indexOfTheOneAndOnlyFaceUpCard = chosenIndex
+           }
         cards[chosenIndex].isFaceUP.toggle()
-        print("chosenCard = \(cards)")
+       }
+//        print("chosenCard = \(cards)")
        
         
-    }
-    func index(of card: Card)-> Int{
-        for index in 0..<cards.count{
-            if cards[index].id == card.id{
-                
-                return index
-            }
-        }
-        return 0
     }
     
     init(numberOfPairsOfCards: Int, createCardContent:(Int) -> CardContent){
