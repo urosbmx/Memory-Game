@@ -11,7 +11,10 @@ import SwiftUI
 struct MemoryGame <CardContent> where CardContent: Equatable{
     var cards: Array<Card>
     
-private var indexOfTheOneAndOnlyFaceUpCard:Int?
+    private var indexOfTheOneAndOnlyFaceUpCard:Int?{
+        get{cards.indices.filter({cards[$0].isFaceUP}).oneAndOnly }
+        set{cards.indices.forEach({cards[$0].isFaceUP = ($0 == newValue)})}
+    }
     
    mutating func chose(_ card: Card){
        if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}),
@@ -22,22 +25,19 @@ private var indexOfTheOneAndOnlyFaceUpCard:Int?
                    cards[chosenIndex].isMatched=true
                    cards[potencialMatchIndex].isMatched=true
                }
-               indexOfTheOneAndOnlyFaceUpCard = nil
+               cards[chosenIndex].isFaceUP = true
            }else{
-               for index in cards.indices{
-                   cards[index].isFaceUP=false
-               }
+              
                indexOfTheOneAndOnlyFaceUpCard = chosenIndex
            }
-        cards[chosenIndex].isFaceUP.toggle()
+ 
        }
-//        print("chosenCard = \(cards)")
        
         
     }
     
     init(numberOfPairsOfCards: Int, createCardContent:(Int) -> CardContent){
-        cards =  Array<Card>()
+        cards = []
         
         for pairIndex in 0..<numberOfPairsOfCards{
             let content: CardContent = createCardContent(pairIndex)
@@ -50,10 +50,20 @@ private var indexOfTheOneAndOnlyFaceUpCard:Int?
      
   struct Card: Identifiable{
         
-        var isFaceUP: Bool = false
-        var isMatched: Bool = false
-        var content: CardContent
-        var id: Int
+        var isFaceUP = false
+        var isMatched = false
+        let content: CardContent
+        let id: Int
+    }
+}
+
+extension Array{
+    var oneAndOnly: Element?{
+        if count == 1{
+            return first
+        }else{
+            return nil
+        }
     }
 }
  

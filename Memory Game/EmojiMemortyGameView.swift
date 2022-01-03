@@ -1,27 +1,27 @@
 //
 //  ContentView.swift
 //  Memory Game
-//  Stigao sam do 1:25:16 Lekcija 4
 //  Created by Uroš Katanić on 28.11.21..
 //  OVO JE VIEW
+// Lecture 5 46:37
 
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemortyGameView: View {
 
-   @ObservedObject var viewModel: EmojiMemoryGame
+   @ObservedObject var game: EmojiMemoryGame
    
-    @State var emojiCount = 10
+    @State var emojiCount = 14
     var body: some View {
         VStack{
             HStack{Text("PICK THE CARD").font(.body)}
             ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum:110))]){
-                    ForEach(viewModel.cards){card in
+                LazyVGrid(columns: [GridItem(.adaptive(minimum:114))]){
+                    ForEach(game.cards){card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fill)
                             .onTapGesture {
-                                viewModel.chose(card)
+                                game.chose(card)
                             }
                     }
                 }
@@ -40,16 +40,17 @@ struct ContentView: View {
 
 
 struct CardView: View {
-    let card: MemoryGame<String>.Card
+    let card: EmojiMemoryGame.Card
+    
     @State var isFaceUp: Bool = false
     
     var body: some View{
         ZStack{
-            let shape = RoundedRectangle(cornerRadius: 20)
+            let shape = RoundedRectangle(cornerRadius: 17)
             if card.isFaceUP{
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
-                Text(card.content).font(.largeTitle)
+                Text(card.content).font(.system(size: 50, weight: .bold, design: .default))
             }else if card.isMatched{
                 shape.opacity(0)
             }
@@ -71,7 +72,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = EmojiMemoryGame()
         Group {
-            ContentView(viewModel: game)
+            EmojiMemortyGameView(game: game)
         }
         
     }
