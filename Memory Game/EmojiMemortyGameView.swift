@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+let backgroundGradient = LinearGradient(
+    colors: [Color.yellow, Color.green, Color.blue],
+    startPoint: .top, endPoint: .bottom)
+
 struct EmojiMemortyGameView: View {
 
    @ObservedObject var game: EmojiMemoryGame
@@ -14,7 +18,8 @@ struct EmojiMemortyGameView: View {
     @State var emojiCount = 14
     var body: some View {
         VStack{
-            HStack{Text("PICK THE CARD").font(.body)}
+            HStack{Text("PICK THE CARD").font(.title2).position(x:195, y:70)}
+            .frame(width: nil, height: 100.0)
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum:114))]){
                     ForEach(game.cards){card in
@@ -30,6 +35,7 @@ struct EmojiMemortyGameView: View {
 
           }
         .padding(.horizontal)
+        .background(backgroundGradient).ignoresSafeArea()
     }
        
 }
@@ -57,6 +63,9 @@ struct CardView: View {
             else{
                 shape.fill()
                 shape.stroke(lineWidth: 3)
+                Image(systemName: "suit.club.fill")
+                    .foregroundStyle(Color.white)
+                    .font(.largeTitle)
                     
             }
         }
