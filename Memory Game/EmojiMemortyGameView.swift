@@ -3,7 +3,7 @@
 //  Memory Game
 //  Created by Uroš Katanić on 28.11.21..
 //  OVO JE VIEW
-// Lecture 5 1:10:37
+// Lecture 6
 
 import SwiftUI
 
@@ -106,7 +106,7 @@ struct ContentView_Previews: PreviewProvider {
         let game = EmojiMemoryGame()
         Group {
             EmojiMemortyGameView(game: game)
-.previewInterfaceOrientation(.portrait)
+.previewInterfaceOrientation(.portraitUpsideDown)
         }
         
     }
