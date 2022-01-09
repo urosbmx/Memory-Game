@@ -23,7 +23,7 @@ struct EmojiMemortyGameView: View {
             .frame(width: nil, height: 80.0)
             
             ScrollView{
-                LazyVGrid(columns: [GridItem(.adaptive(minimum:114))]){
+                LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]){
                     ForEach(game.cards){card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fill)
@@ -55,27 +55,47 @@ struct CardView: View {
     @State var isFaceUp: Bool = false
     
     var body: some View{
-        ZStack{
-            let shape = RoundedRectangle(cornerRadius: 17)
-            if card.isFaceUP{
-                shape.fill().foregroundColor(.white)
-                shape.strokeBorder(lineWidth: 3)
-                Text(card.content).font(.system(size: 50, weight: .bold, design: .default))
-            }else if card.isMatched{
-                shape.opacity(0)
+        GeometryReader(content: { geometry in
+            ZStack{
+                let shape = RoundedRectangle(cornerRadius: DrawinConstants.cornderRadius)
+                if card.isFaceUP{
+                    shape.fill().foregroundColor(.white)
+                    shape.strokeBorder(lineWidth: DrawinConstants.lineWidth)
+                    Text(card.content).font(fontBack(in: geometry.size))
+                }else if card.isMatched{
+                    shape.opacity(DrawinConstants.opacity)
+                }
+                else{
+                    shape.fill()
+                    shape.stroke(lineWidth: DrawinConstants.lineWidth)
+                    Image(systemName: "suit.club.fill")
+                        .foregroundStyle(Color.white)
+                        .font(fontFront(in: geometry.size))
+                        
+                }
             }
-            else{
-                shape.fill()
-                shape.stroke(lineWidth: 3)
-                Image(systemName: "suit.club.fill")
-                    .foregroundStyle(Color.white)
-                    .font(.largeTitle)
-                    
-            }
-        }
-        .padding()
+            
+        })
+        
 }
+    //Funkcije za dimenziju simobla
+    private func fontBack(in size: CGSize) -> Font{
+        Font.system(size: min(size.width, size.height) * DrawinConstants.sizeBackIcon)
+    }
+    
+    private func fontFront(in size: CGSize) -> Font{
+        Font.system(size: min(size.width, size.height) * DrawinConstants.sizeFrontIcon)
+    }
 
+
+    private struct DrawinConstants{
+        static let cornderRadius: CGFloat = 17
+        static let lineWidth: CGFloat = 3
+        static let sizeFrontIcon: CGFloat = 0.5
+        static let sizeBackIcon: CGFloat = 0.7
+        static let opacity: CGFloat = 0
+        
+    }
 
 
 
