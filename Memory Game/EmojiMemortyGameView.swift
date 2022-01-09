@@ -37,8 +37,6 @@ struct EmojiMemortyGameView: View {
 
           }
         .padding(.horizontal)
-//        Ovo je da ignosise safe arije
-//        .background(backgroundGradient).edgesIgnoringSafeArea([.bottom])
         .background(backgroundGradient).ignoresSafeArea()
     }
        
@@ -106,7 +104,7 @@ struct ContentView_Previews: PreviewProvider {
         let game = EmojiMemoryGame()
         Group {
             EmojiMemortyGameView(game: game)
-.previewInterfaceOrientation(.portraitUpsideDown)
+.previewInterfaceOrientation(.portrait)
         }
         
     }
