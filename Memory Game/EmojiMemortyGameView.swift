@@ -3,7 +3,7 @@
 //  Memory Game
 //  Created by Uroš Katanić on 28.11.21..
 //  OVO JE VIEW
-// Lecture 5 46:37
+// Lecture 5 1:10:37
 
 import SwiftUI
 
@@ -18,8 +18,10 @@ struct EmojiMemortyGameView: View {
     @State var emojiCount = 14
     var body: some View {
         VStack{
-            HStack{Text("PICK THE CARD").font(.title2).position(x:195, y:70)}
-            .frame(width: nil, height: 100.0)
+            HStack(alignment: .bottom){Text("PICK THE CARD").font(.title2)
+                    .multilineTextAlignment(.center).padding(.top, 25.0)}
+            .frame(width: nil, height: 80.0)
+            
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum:114))]){
                     ForEach(game.cards){card in
@@ -35,6 +37,8 @@ struct EmojiMemortyGameView: View {
 
           }
         .padding(.horizontal)
+//        Ovo je da ignosise safe arije
+//        .background(backgroundGradient).edgesIgnoringSafeArea([.bottom])
         .background(backgroundGradient).ignoresSafeArea()
     }
        
@@ -82,6 +86,7 @@ struct ContentView_Previews: PreviewProvider {
         let game = EmojiMemoryGame()
         Group {
             EmojiMemortyGameView(game: game)
+.previewInterfaceOrientation(.portrait)
         }
         
     }
